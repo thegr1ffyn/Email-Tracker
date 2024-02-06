@@ -1,1 +1,2 @@
-# Email-Tracker
+# email-tracker
+Track Your Emails

